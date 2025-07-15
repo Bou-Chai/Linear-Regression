@@ -1,0 +1,9 @@
+[submodule "libs/CSVParse"]
+	path = libs/CSVParse
+	url = https://github.com/Bou-Chai/CSVParse
+[submodule "libs/Data-Tables"]
+	path = libs/Data-Tables
+	url = https://github.com/Bou-Chai/Data-Tables
+[submodule "libs/Tables"]
+	path = libs/Tables
+	url = https://github.com/Bou-Chai/Tables.git
