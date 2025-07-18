@@ -7,7 +7,7 @@
 class LRModel {
 public:
     double estimate(double x);
-    void fit(tables::Table& table, std::string xCol, std::string yCol);
+    void fit(tables::Table& table, float trainingRatio, std::string xCol, std::string yCol);
     double getB1();
     void setB1(double b1);
     double getB0();

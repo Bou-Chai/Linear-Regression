@@ -8,24 +8,23 @@ double LRModel::estimate(double x) {
     return b0 + (b1 * x);
 }
 
-void LRModel::fit(tables::Table& table, std::string xCol, std::string yCol) {
-    double xSum;
-    double ySum;
+void LRModel::fit(tables::Table& table, float trainingRatio, std::string xCol, std::string yCol) {
+    double xMean;
+    double yMean;
+    int testStartIndex = (int)(table.height() * trainingRatio);
 
-    xSum = table.sum<double>(xCol);
-    ySum = table.sum<double>(yCol);
-
-    std::cout << "HERE" << "\n";
+    xMean = table.col<double>(xCol).getMean(0, testStartIndex);
+    yMean = table.col<double>(yCol).getMean(0, testStartIndex);
 
     // Calculate numerator and denominator for b1
     double b1Numerator = 0;
     double b1Denominator = 0;
-    for (int i = 0; i < table.height(); i++) {
-        b1Numerator += (table.at<double>(xCol, i) - xSum) * (table.at<double>(yCol, i) - ySum);
-        b1Denominator += pow(table.at<double>(xCol, i) - xSum, 2);
+    for (int i = 0; i < (int)(table.height() * trainingRatio); i++) {
+        b1Numerator += (table.at<double>(xCol, i) - xMean) * (table.at<double>(yCol, i) - yMean);
+        b1Denominator += pow(table.at<double>(xCol, i) - xMean, 2);
     }
     b1 = b1Numerator / b1Denominator;
-    b0 = ySum - (b1 * xSum);
+    b0 = yMean - (b1 * xMean);
 }
 
 double LRModel::getB1() {
